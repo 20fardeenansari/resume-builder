@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Interactive Resume Builder</title>
+    <!-- Modern Font: Outfit and Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxicons for elegant icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="app-wrapper">
+        <!-- Animated Background Elements -->
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+        <div class="bg-shape shape-3"></div>
+
+        <div class="app-container">
+            <!-- Header with Progress Bar -->
+            <header class="app-header glass-card">
+                <div class="logo">
+                    <div class="logo-icon"><i class='bx bx-file-blank'></i></div>
+                    <h1>ResuCraft</h1>
+                </div>
+                <div class="progress-section">
+                    <div class="progress-text">
+                        <span id="progressPercentage">0%</span> Completed
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="clearFormBtn" class="btn btn-outline" title="Clear Form"><i class='bx bx-trash'></i>
+                        <span class="btn-text">Reset</span></button>
+                    <button id="downloadPdfBtn" class="btn btn-primary" title="Download PDF"><i
+                            class='bx bx-download'></i> <span class="btn-text">Download</span></button>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <!-- Left Side: Form Edit -->
+                <div class="form-section">
+                    <!-- Personal Info -->
+                    <section class="form-group-card glass-card fade-in" style="animation-delay: 0.1s;">
+                        <h2 class="card-title"><i class='bx bx-user'></i> Personal Details</h2>
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" placeholder="e.g. Jane Austen" data-field="personal">
+                            </div>
+                            <div class="input-group">
+                                <label for="jobTitle">Job Title</label>
+                                <input type="text" id="jobTitle" placeholder="e.g. Senior Product Designer"
+                                    data-field="personal">
+                            </div>
+                            <div class="input-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" placeholder="e.g. jane@example.com"
+                                    data-field="personal">
+                            </div>
+                            <div class="input-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" placeholder="e.g. +1 234 567 8900" data-field="personal">
+                            </div>
+                            <div class="input-group">
+                                <label for="location">Location</label>
+                                <input type="text" id="location" placeholder="e.g. San Francisco, CA"
+                                    data-field="personal">
+                            </div>
+                            <div class="input-group">
+                                <label for="portfolio">Portfolio / LinkedIn</label>
+                                <input type="url" id="portfolio" placeholder="e.g. linkedin.com/in/janeausten"
+                                    data-field="personal">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Profile Summary -->
+                    <section class="form-group-card glass-card fade-in" style="animation-delay: 0.2s;">
+                        <h2 class="card-title"><i class='bx bx-text'></i> Professional Summary</h2>
+                        <div class="input-group">
+                            <textarea id="summary" rows="4"
+                                placeholder="Craft a compelling summary of your professional journey..."
+                                data-field="summary"></textarea>
+                        </div>
+                    </section>
+
+                    <!-- Experience -->
+                    <section class="form-group-card glass-card dynamic-section fade-in" id="experienceSection"
+                        style="animation-delay: 0.3s;">
+                        <div class="section-header">
+                            <h2 class="card-title"><i class='bx bx-briefcase'></i> Work Experience</h2>
+                            <button id="addExperienceBtn" class="btn-icon add-btn"><i class='bx bx-plus'></i>
+                                Add</button>
+                        </div>
+                        <div id="experienceList" class="dynamic-list">
+                            <!-- JS generates experience forms here -->
+                        </div>
+                    </section>
+
+                    <!-- Education -->
+                    <section class="form-group-card glass-card dynamic-section fade-in" id="educationSection"
+                        style="animation-delay: 0.4s;">
+                        <div class="section-header">
+                            <h2 class="card-title"><i class='bx bx-book-open'></i> Education</h2>
+                            <button id="addEducationBtn" class="btn-icon add-btn"><i class='bx bx-plus'></i>
+                                Add</button>
+                        </div>
+                        <div id="educationList" class="dynamic-list">
+                            <!-- JS generates education forms here -->
+                        </div>
+                    </section>
+
+                    <!-- Skills -->
+                    <section class="form-group-card glass-card fade-in" style="animation-delay: 0.5s;">
+                        <div class="section-header">
+                            <h2 class="card-title"><i class='bx bx-wrench'></i> Skills</h2>
+                        </div>
+                        <div class="input-group">
+                            <label for="skillInput">Type a skill and press Enter or comma</label>
+                            <div class="tags-input-container">
+                                <div id="skillsContainer" class="skills-chips">
+                                    <!-- Skill tags injected here -->
+                                </div>
+                                <input type="text" id="skillInput" placeholder="e.g. React, UX/UI, Python">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Side: Live Document Preview -->
+                <div class="preview-section fade-in" style="animation-delay: 0.6s;">
+                    <div class="resume-preview-wrapper" id="printArea">
+                        <div class="resume-preview" id="resumePreview">
+                            <!-- Resume generated by JS -->
+
+                            <!-- Placeholder state -->
+                            <div class="empty-state" id="emptyPreviewState">
+                                <div class="empty-icon"><i class='bx bx-file-find'></i></div>
+                                <h3>Your Resume Timeline</h3>
+                                <p>Start typing in the form to see your stunning resume appear here.</p>
+                            </div>
+
+                            <!-- Active View -->
+                            <div class="resume-content" id="activePreviewContent" style="display: none;">
+                                <div class="resume-header">
+                                    <div class="header-primary">
+                                        <h1 id="previewName"></h1>
+                                        <h2 id="previewJobTitle"></h2>
+                                    </div>
+                                    <div class="header-contact">
+                                        <div class="contact-item" id="previewEmailContainer" style="display: none;">
+                                            <i class='bx bxs-envelope'></i> <span id="previewEmail"></span>
+                                        </div>
+                                        <div class="contact-item" id="previewPhoneContainer" style="display: none;">
+                                            <i class='bx bxs-phone'></i> <span id="previewPhone"></span>
+                                        </div>
+                                        <div class="contact-item" id="previewLocationContainer" style="display: none;">
+                                            <i class='bx bxs-map'></i> <span id="previewLocation"></span>
+                                        </div>
+                                        <div class="contact-item" id="previewPortfolioContainer" style="display: none;">
+                                            <i class='bx bxl-linkedin-square'></i> <span id="previewPortfolio"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="resume-main">
+                                    <div class="resume-column-main">
+                                        <div class="resume-section" id="previewSummaryContainer" style="display: none;">
+                                            <div class="resume-section-title">Profile</div>
+                                            <div class="resume-section-content">
+                                                <p id="previewSummary" class="summary-text"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="resume-section" id="previewExperienceContainer"
+                                            style="display: none;">
+                                            <div class="resume-section-title">Experience</div>
+                                            <div class="resume-section-content" id="previewExperienceList">
+                                                <!-- Experiences -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="resume-column-aside">
+                                        <div class="resume-section" id="previewEducationContainer"
+                                            style="display: none;">
+                                            <div class="resume-section-title">Education</div>
+                                            <div class="resume-section-content" id="previewEducationList">
+                                                <!-- Educations -->
+                                            </div>
+                                        </div>
+
+                                        <div class="resume-section" id="previewSkillsContainer" style="display: none;">
+                                            <div class="resume-section-title">Skills</div>
+                                            <div class="resume-section-content">
+                                                <div class="preview-skills-list" id="previewSkillsList">
+                                                    <!-- Skills -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Template for Experience Form Item -->
+    <template id="experienceTemplate">
+        <div class="dynamic-item entry-card">
+            <div class="item-header">
+                <h3>Experience Entry</h3>
+                <button class="btn-icon remove-btn" type="button" title="Remove"><i class='bx bx-trash'></i></button>
+            </div>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label>Job Title</label>
+                    <input type="text" class="exp-title" placeholder="e.g. Software Engineer">
+                </div>
+                <div class="input-group">
+                    <label>Company</label>
+                    <input type="text" class="exp-company" placeholder="e.g. Google">
+                </div>
+                <div class="input-group">
+                    <label>Start Date</label>
+                    <input type="text" class="exp-from" placeholder="e.g. Jan 2020">
+                </div>
+                <div class="input-group">
+                    <label>End Date</label>
+                    <input type="text" class="exp-to" placeholder="e.g. Present">
+                </div>
+                <div class="input-group full-width">
+                    <label>Description</label>
+                    <textarea class="exp-desc" rows="3"
+                        placeholder="Describe your achievements and responsibilities..."></textarea>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Template for Education Form Item -->
+    <template id="educationTemplate">
+        <div class="dynamic-item entry-card">
+            <div class="item-header">
+                <h3>Education Entry</h3>
+                <button class="btn-icon remove-btn" type="button" title="Remove"><i class='bx bx-trash'></i></button>
+            </div>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label>Degree</label>
+                    <input type="text" class="edu-degree" placeholder="e.g. B.S. Computer Science">
+                </div>
+                <div class="input-group">
+                    <label>School / University</label>
+                    <input type="text" class="edu-school" placeholder="e.g. MIT">
+                </div>
+                <div class="input-group">
+                    <label>Start Year</label>
+                    <input type="text" class="edu-from" placeholder="e.g. 2018">
+                </div>
+                <div class="input-group">
+                    <label>End Year</label>
+                    <input type="text" class="edu-to" placeholder="e.g. 2022">
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
