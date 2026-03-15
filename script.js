@@ -337,197 +337,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Download / Print
-    downloadPdfBtn.addEventListener('click', () => {
-        const resumeContent = document.getElementById('printArea').innerHTML;
+    // Download PDF
+    downloadPdfBtn.addEventListener("click", () => {
+        const element = document.getElementById("printArea");
 
-        const printWindow = window.open('', '_blank', 'width=900,height=1200');
+        const opt = {
+            margin: 10,
+            filename: "My_Resume.pdf",
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: {
+                unit: "mm",
+                format: "a4",
+                orientation: "portrait"
+            }
+        };
 
-        printWindow.document.write(`
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Resume PDF</title>
-            <style>
-                body {
-                    margin: 0;
-                    padding: 0;
-                    font-family: Inter, Arial, sans-serif;
-                    background: white;
-                    color: #111827;
-                }
-
-                .resume-preview-wrapper {
-                    width: 100%;
-                    max-width: 100%;
-                    margin: 0;
-                    padding: 0;
-                    background: white;
-                    box-shadow: none;
-                    border: none;
-                    border-radius: 0;
-                }
-
-                .resume-preview {
-                    padding: 32px;
-                    background: white;
-                    color: #111827;
-                }
-
-                .resume-header {
-                    border-bottom: 2px solid #5b5cf0;
-                    padding-bottom: 16px;
-                    margin-bottom: 24px;
-                }
-
-                .header-primary h1 {
-                    font-size: 32px;
-                    margin: 0 0 6px;
-                    font-weight: 800;
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                }
-
-                .header-primary h2 {
-                    font-size: 18px;
-                    margin: 0 0 14px;
-                    color: #5b5cf0;
-                    font-weight: 600;
-                }
-
-                .header-contact {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 10px 18px;
-                    font-size: 14px;
-                    color: #475569;
-                }
-
-                .contact-item {
-                    display: inline-block;
-                }
-
-                .resume-main {
-                    display: flex;
-                    gap: 28px;
-                    align-items: flex-start;
-                }
-
-                .resume-column-main {
-                    flex: 2;
-                }
-
-                .resume-column-aside {
-                    flex: 1;
-                }
-
-                .resume-section {
-                    margin-bottom: 24px;
-                }
-
-                .resume-section-title {
-                    font-size: 16px;
-                    font-weight: 800;
-                    text-transform: uppercase;
-                    margin-bottom: 12px;
-                    padding-bottom: 6px;
-                    border-bottom: 1px solid #dbe2ea;
-                    color: #111827;
-                }
-
-                .summary-text,
-                .preview-item-desc {
-                    font-size: 14px;
-                    line-height: 1.7;
-                    color: #475569;
-                    white-space: pre-wrap;
-                }
-
-                .preview-item {
-                    margin-bottom: 16px;
-                }
-
-                .preview-item-header {
-                    display: flex;
-                    justify-content: space-between;
-                    gap: 10px;
-                    margin-bottom: 4px;
-                }
-
-                .preview-item-title {
-                    font-weight: 700;
-                    font-size: 15px;
-                    color: #111827;
-                }
-
-                .preview-item-date {
-                    font-size: 13px;
-                    color: #64748b;
-                    white-space: nowrap;
-                }
-
-                .preview-item-subtitle {
-                    font-size: 14px;
-                    font-weight: 600;
-                    color: #5b5cf0;
-                    margin-bottom: 6px;
-                }
-
-                .preview-skills-list {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 8px;
-                }
-
-                .preview-skill-tag {
-                    display: inline-block;
-                    background: #eef2ff;
-                    color: #334155;
-                    padding: 6px 10px;
-                    border-radius: 999px;
-                    font-size: 13px;
-                    font-weight: 600;
-                }
-
-                a {
-                    color: #5b5cf0;
-                    text-decoration: none;
-                }
-
-                @media print {
-                    body {
-                        margin: 0;
-                    }
-
-                    .resume-preview {
-                        padding: 20px;
-                    }
-
-                    @page {
-                        size: A4;
-                        margin: 12mm;
-                    }
-                }
-            </style>
-        </head>
-        <body>
-            <div class="resume-preview-wrapper">
-                ${resumeContent}
-            </div>
-            <script>
-                window.onload = function () {
-                    window.focus();
-                    window.print();
-                    window.onafterprint = function () {
-                        window.close();
-                    };
-                };
-            <\/script>
-        </body>
-        </html>
-    `);
-
-        printWindow.document.close();
+        html2pdf().set(opt).from(element).save();
     });
 
     // Initial state
